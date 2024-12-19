@@ -1,0 +1,6 @@
+{
+  "watch": ["."],
+  "ignore": [".venv", "*-Extras"],
+  "ext": "py",
+  "exec": "python3"
+}
