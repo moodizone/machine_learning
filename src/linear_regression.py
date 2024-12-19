@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.datasets import load_diabetes
 
+from src.utils.helpers import get_absolute_path
+
 
 def store_raw_diabetes():
     """
@@ -14,8 +16,8 @@ def store_raw_diabetes():
     df.to_csv("./data/raw/diabetes.csv", index=False)
 
 
-def main():
-    store_raw_diabetes()
-
-
-main()
+def read_raw_diabetes() -> pd.DataFrame:
+    data_path = get_absolute_path("data/raw/diabetes.csv")
+    data = pd.read_csv(data_path)
+    df = pd.DataFrame(data)
+    return df
