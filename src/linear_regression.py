@@ -1,23 +1,36 @@
 import pandas as pd
-from sklearn.datasets import load_diabetes
-
+import kagglehub
+import shutil
+import os
 from src.utils.helpers import get_absolute_path
 
 
-def store_raw_diabetes():
+def store_data_set():
     """
     Dataset characteristics:
-    https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_diabetes.html#sklearn.datasets.load_diabetes
-    https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset
+    https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who
     """
-    diabetes = load_diabetes(as_frame=False, return_X_y=False, scaled=False)
-    df = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
-    df["Target"] = diabetes.target
-    df.to_csv("./data/raw/diabetes.csv", index=False)
+    source_dir = kagglehub.dataset_download("kumarajarshi/life-expectancy-who")
+    destination_dir = get_absolute_path("data/raw")
+    print("✅ Download completed successfully")
+
+    # ensure the destination directory exists
+    os.makedirs(destination_dir, exist_ok=True)
+
+    # list all files in the source directory
+    files = os.listdir(source_dir)
+
+    for file in files:
+        source_file = os.path.join(source_dir, file)
+        destination_file = os.path.join(destination_dir, file)
+
+        if os.path.isfile(source_file):
+            shutil.copy(source_file, destination_file)
+            print(f"✅ '{file}' copied successfully")
 
 
-def read_raw_diabetes() -> pd.DataFrame:
-    data_path = get_absolute_path("data/raw/diabetes.csv")
+def read_data_set() -> pd.DataFrame:
+    data_path = get_absolute_path("data/raw/Life Expectancy Data.csv")
     data = pd.read_csv(data_path)
     df = pd.DataFrame(data)
     return df
