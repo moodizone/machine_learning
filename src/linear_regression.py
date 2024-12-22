@@ -8,6 +8,7 @@ from src.utils.helpers import get_absolute_path
 def store_data_set():
     """
     Dataset characteristics:
+    https://www.kaggle.com/code/ranasabrii/life-expectancy-regression-with-ann?scriptVersionId=161849282&cellId=8
     https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who
     """
     try:
