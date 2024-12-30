@@ -5,14 +5,9 @@ import os
 from src.utils.helpers import get_absolute_path
 
 
-def store_data_set():
-    """
-    Dataset characteristics:
-    https://www.kaggle.com/code/ranasabrii/life-expectancy-regression-with-ann?scriptVersionId=161849282&cellId=8
-    https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who
-    """
+def download_data_from_kaggle(url: str):
     try:
-        source_dir = kagglehub.dataset_download("kumarajarshi/life-expectancy-who")
+        source_dir = kagglehub.dataset_download(url)
         destination_dir = get_absolute_path("data/raw")
         print("✅ Download completed successfully")
 
@@ -33,8 +28,8 @@ def store_data_set():
         print(f"❌ An error occurred:\n{e}")
 
 
-def read_data_set() -> pd.DataFrame:
-    data_path = get_absolute_path("data/raw/Life Expectancy Data.csv")
+def read_data_set(path: str) -> pd.DataFrame:
+    data_path = get_absolute_path(path)
 
     if not os.path.exists(data_path):
         print(f"❌ File not found: {data_path}")
